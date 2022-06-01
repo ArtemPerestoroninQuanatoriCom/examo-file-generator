@@ -1,8 +1,11 @@
 package com.examo.generator.config;
 
-import lombok.Data;
+import com.google.gson.GsonBuilder;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class Configuration {
 
     private Integer examsCount = 20;
@@ -16,5 +19,10 @@ public class Configuration {
     private Integer maxTagsForTemplate = 2;
 
     private String outputDir = "target/generated/";
+
+    @Override
+    public String toString() {
+        return new GsonBuilder().setPrettyPrinting().create().toJson(this);
+    }
 
 }
