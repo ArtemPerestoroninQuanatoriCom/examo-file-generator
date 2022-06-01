@@ -1,5 +1,6 @@
 package com.examo.generator;
 
+import com.examo.generator.config.Configuration;
 import com.examo.generator.models.Exam;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -15,8 +16,6 @@ import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.examo.generator.GlobalParameters.maxQuestionsForTemplate;
-import static com.examo.generator.GlobalParameters.minQuestionsForTemplate;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.apache.commons.lang3.RandomUtils.nextInt;
 import static org.apache.commons.lang3.RandomUtils.nextLong;
@@ -30,6 +29,11 @@ public class ExamFileGenerator extends FileGenerator {
             """;
     @Getter
     private final List<Exam> exams = new ArrayList<>();
+
+    public ExamFileGenerator(Configuration configuration) {
+        super(configuration);
+
+    }
 
     public void generate() throws IOException {
         File outputFile = createFile(OUTPUT_FILE);
@@ -52,7 +56,7 @@ public class ExamFileGenerator extends FileGenerator {
     }
 
     private void addExams(FileOutputStream outputStream) throws IOException {
-        for (int i = 0; i < GlobalParameters.examsCount; i++) {
+        for (int i = 0; i < configuration.getExamsCount(); i++) {
             Exam exam = generateExam();
             exams.add(exam);
             outputStream.write(exam.toString().getBytes(UTF_8));
@@ -71,7 +75,7 @@ public class ExamFileGenerator extends FileGenerator {
             for (int j = 0; j < new Random().nextInt(2) + 1; j++) {
                 tags.add(FAKER.app().name());
             }
-            exam.getTemplates().add(new Exam.Template(tags, nextInt(minQuestionsForTemplate, maxQuestionsForTemplate + 1)));
+            exam.getTemplates().add(new Exam.Template(tags, nextInt(configuration.getMinQuestionsForTemplate(), configuration.getMaxQuestionsForTemplate() + 1)));
         }
 
         exam.setDuration(Duration.ofSeconds(nextLong(1800, 14400)));

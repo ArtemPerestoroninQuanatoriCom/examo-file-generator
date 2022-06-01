@@ -1,5 +1,6 @@
 package com.examo.generator;
 
+import com.examo.generator.config.ArgumentsReader;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -10,11 +11,11 @@ import java.util.Set;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        new ArgumentsReader().readArgs(args);
-        ExamFileGenerator examFileGenerator = new ExamFileGenerator();
+        var configuration = new ArgumentsReader().readArgs(args);
+        ExamFileGenerator examFileGenerator = new ExamFileGenerator(configuration);
         examFileGenerator.generate();
 
-        QuestionsFileGenerator questionsFileGenerator = new QuestionsFileGenerator();
+        QuestionsFileGenerator questionsFileGenerator = new QuestionsFileGenerator(configuration);
         Set<String> tags = examFileGenerator.getAllTags();
 
         questionsFileGenerator.setTags(new ArrayList<>(tags));

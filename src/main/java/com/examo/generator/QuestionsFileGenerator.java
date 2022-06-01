@@ -1,5 +1,6 @@
 package com.examo.generator;
 
+import com.examo.generator.config.Configuration;
 import com.examo.generator.models.Question;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,10 +13,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.examo.generator.GlobalParameters.maxAnswersCount;
-import static com.examo.generator.GlobalParameters.maxQuestionsInGroup;
-import static com.examo.generator.GlobalParameters.minAnswersCount;
-import static com.examo.generator.GlobalParameters.minQuestionsInGroup;
 import static java.lang.Math.min;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.apache.commons.lang3.RandomUtils.nextInt;
@@ -31,12 +28,14 @@ public class QuestionsFileGenerator extends FileGenerator {
     @Setter
     private ArrayList<String> tags;
 
+    public QuestionsFileGenerator(Configuration configuration) {super(configuration);}
+
     public void generate() throws IOException {
         File outputFile = createFile(OUTPUT_FILE);
         try (FileOutputStream outputStream = new FileOutputStream(outputFile)) {
             addHeaders(outputStream);
             for (String tag : tags) {
-                for (int i = 0; i < nextInt(minQuestionsInGroup, maxQuestionsInGroup + 1); i++) {
+                for (int i = 0; i < nextInt(configuration.getMinQuestionsInGroup(), configuration.getMaxQuestionsInGroup() + 1); i++) {
                     Set<String> tags = getRandomTagsInclude(tag);
                     addQuestions(outputStream, tags);
                 }
@@ -61,7 +60,7 @@ public class QuestionsFileGenerator extends FileGenerator {
         question.setQuestion(getQuestion());
 
         List<Question.Answer> answers = new ArrayList<>();
-        for (int i = 0; i < nextInt(minAnswersCount, maxAnswersCount + 1); i++) {
+        for (int i = 0; i < nextInt(configuration.getMinAnswersCount(), configuration.getMaxAnswersCount() + 1); i++) {
             Question.Answer answer = new Question.Answer();
             answer.setText(getAnswer());
             answers.add(answer);
