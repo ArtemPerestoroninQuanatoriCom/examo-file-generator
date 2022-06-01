@@ -48,10 +48,12 @@ public class ArgumentsReader {
             Option minQuestionsInGroupOption = new Option("minQG", "minQuestionsInGroup", true, "Min number of questions that will be generated for one group. Default=" + configuration.getMinQuestionsInGroup());
             Option maxQuestionsInGroupOption = new Option("maxQG", "maxQuestionsInGroup", true, "Max number of questions that will be generated for one group. Default=" + configuration.getMaxQuestionsInGroup());
             Option minQuestionsForTemplateOption = new Option("minQT", "minQuestionsForTemplate", true, "Min number of questions that will be generated for one template. Default=" + configuration.getMinQuestionsForTemplate());
-            Option maxQuestionsForTemplateOption = new Option("maxQT", "maxQuestionsForTemplate", true, "Max number of questions that will be generated for one template Default=" + configuration.getMaxQuestionsForTemplate());
+            Option maxQuestionsForTemplateOption = new Option("maxQT", "maxQuestionsForTemplate", true, "Max number of questions that will be generated for one template. Default=" + configuration.getMaxQuestionsForTemplate());
             Option minAnswersCountOption = new Option("minAC", "minAnswersCount", true, "Min number of answers that will be generated for question. Default=" + configuration.getMinAnswersCount());
-            Option maxAnswersCountOption = new Option("maxAC", "maxAnswersCount", true, "Max number of answers that will be generated for question Default=" + configuration.getMaxAnswersCount());
+            Option maxAnswersCountOption = new Option("maxAC", "maxAnswersCount", true, "Max number of answers that will be generated for question. Default=" + configuration.getMaxAnswersCount());
             Option outputDirOption = new Option("out", "outputDir", true, "Directory to generate files. Default=" + configuration.getOutputDir());
+            Option maxTemplatesForExamOption = new Option("maxTE", "maxTemplatesForExam", true, "Max number of templates that will be generated for exam. Default=" + configuration.getMaxTemplatesForExam());
+            Option maxTagsForTemplateOption = new Option("maxTT", "maxTagsForTemplate", true, "Max number of tags that will be included in template. Default=" + configuration.getMaxAnswersCount());
 
             configMap.put(examCountOption, new TypedConsumer<>(Integer.class, configuration::setExamsCount));
             configMap.put(minQuestionsInGroupOption, new TypedConsumer<>(Integer.class, configuration::setMaxQuestionsInGroup));
@@ -61,6 +63,8 @@ public class ArgumentsReader {
             configMap.put(minAnswersCountOption, new TypedConsumer<>(Integer.class, configuration::setMinAnswersCount));
             configMap.put(maxAnswersCountOption, new TypedConsumer<>(Integer.class, configuration::setMaxAnswersCount));
             configMap.put(outputDirOption, new TypedConsumer<>(String.class, configuration::setOutputDir));
+            configMap.put(maxTemplatesForExamOption, new TypedConsumer<>(Integer.class, configuration::setMaxTemplatesForExam));
+            configMap.put(maxTagsForTemplateOption, new TypedConsumer<>(Integer.class, configuration::setMaxTagsForTemplate));
         }
 
         return configMap;

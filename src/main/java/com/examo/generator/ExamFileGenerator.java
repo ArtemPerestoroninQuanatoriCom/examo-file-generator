@@ -70,9 +70,9 @@ public class ExamFileGenerator extends FileGenerator {
 
         exam.setTitle("%s %s".formatted(FAKER.hacker().adjective(), FAKER.programmingLanguage().name()));
 
-        for (int i = 0; i < new Random().nextInt(2) + 1; i++) {
+        for (int i = 0; i < new Random().nextInt(configuration.getMaxTemplatesForExam()) + 1; i++) {
             Set<String> tags = new HashSet<>();
-            for (int j = 0; j < new Random().nextInt(2) + 1; j++) {
+            for (int j = 0; j < new Random().nextInt(configuration.getMaxTagsForTemplate()) + 1; j++) {
                 tags.add(FAKER.app().name());
             }
             exam.getTemplates().add(new Exam.Template(tags, nextInt(configuration.getMinQuestionsForTemplate(), configuration.getMaxQuestionsForTemplate() + 1)));

@@ -12,6 +12,8 @@ public class Configuration {
     private Integer maxQuestionsForTemplate = 30;
     private Integer minAnswersCount = 3;
     private Integer maxAnswersCount = 6;
+    private Integer maxTemplatesForExam = 2;
+    private Integer maxTagsForTemplate = 2;
 
     private String outputDir = "target/generated/";
 
