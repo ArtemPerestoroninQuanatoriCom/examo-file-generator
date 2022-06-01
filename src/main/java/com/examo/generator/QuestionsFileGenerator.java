@@ -26,7 +26,7 @@ public class QuestionsFileGenerator extends FileGenerator {
     @Getter
     private final List<Question> questions = new ArrayList<>();
     @Setter
-    private ArrayList<String> tags;
+    private Set<String> tags;
 
     public QuestionsFileGenerator(Configuration configuration) {super(configuration);}
 
@@ -91,12 +91,13 @@ public class QuestionsFileGenerator extends FileGenerator {
     }
 
     private Set<String> getRandomTagsInclude(String tag) {
-        int tagsCount = nextInt(1, min(4, tags.size()));
+        ArrayList<String> tagsArray = new ArrayList<>(tags);
+        int tagsCount = nextInt(1, min(4, tagsArray.size()));
         Set<String> random = new HashSet<>();
         random.add(tag);
         while (tagsCount != random.size()) {
-            int index = nextInt(0, tags.size());
-            String next = tags.get(index);
+            int index = nextInt(0, tagsArray.size());
+            String next = tagsArray.get(index);
             if (random.contains(next)) {
                 continue;
             }
