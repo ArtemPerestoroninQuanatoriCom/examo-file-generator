@@ -54,6 +54,7 @@ public class ArgumentsReader {
             Option outputDirOption = new Option("out", "outputDir", true, "Directory to generate files. Default=" + configuration.getOutputDir());
             Option maxTemplatesForExamOption = new Option("maxTE", "maxTemplatesForExam", true, "Max number of templates that will be generated for exam. Default=" + configuration.getMaxTemplatesForExam());
             Option maxTagsForTemplateOption = new Option("maxTT", "maxTagsForTemplate", true, "Max number of tags that will be included in template. Default=" + configuration.getMaxAnswersCount());
+            Option maxTagsForQuestionOption = new Option("maxTQ", "maxTagsForQuestion", true, "Max number of tags that will be included in question. Default=" + configuration.getMaxTagsForQuestion());
 
             configMap.put(examCountOption, new TypedConsumer<>(Integer.class, configuration::setExamsCount));
             configMap.put(minQuestionsInGroupOption, new TypedConsumer<>(Integer.class, configuration::setMaxQuestionsInGroup));
@@ -65,6 +66,7 @@ public class ArgumentsReader {
             configMap.put(outputDirOption, new TypedConsumer<>(String.class, configuration::setOutputDir));
             configMap.put(maxTemplatesForExamOption, new TypedConsumer<>(Integer.class, configuration::setMaxTemplatesForExam));
             configMap.put(maxTagsForTemplateOption, new TypedConsumer<>(Integer.class, configuration::setMaxTagsForTemplate));
+            configMap.put(maxTagsForQuestionOption, new TypedConsumer<>(Integer.class, configuration::setMaxTagsForQuestion));
         }
 
         return configMap;

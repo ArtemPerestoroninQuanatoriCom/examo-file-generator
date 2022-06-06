@@ -92,7 +92,7 @@ public class QuestionsFileGenerator extends FileGenerator {
 
     private Set<String> getRandomTagsInclude(String tag) {
         ArrayList<String> tagsArray = new ArrayList<>(tags);
-        int tagsCount = nextInt(1, min(4, tagsArray.size()));
+        int tagsCount = nextInt(1, min(configuration.getMaxTagsForQuestion() + 1, tagsArray.size()));
         Set<String> random = new HashSet<>();
         random.add(tag);
         while (tagsCount != random.size()) {
